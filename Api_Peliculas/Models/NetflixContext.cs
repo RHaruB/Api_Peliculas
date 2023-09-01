@@ -31,6 +31,7 @@ public partial class NetflixContext : DbContext
         {
         }
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Pelicula>(entity =>
@@ -63,6 +64,10 @@ public partial class NetflixContext : DbContext
                 .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("apellidos");
+            entity.Property(e => e.Cedula)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("cedula");
             entity.Property(e => e.FechaNacimiento)
                 .HasColumnType("date")
                 .HasColumnName("fecha_nacimiento");
@@ -74,36 +79,38 @@ public partial class NetflixContext : DbContext
 
         modelBuilder.Entity<RelacionPeliculasTipo>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Relacion_peliculas_tipos");
+            entity.HasKey(e => e.Codigo).HasName("PK__Relacion__40F9A20765322622");
 
+            entity.ToTable("Relacion_peliculas_tipos");
+
+            entity.Property(e => e.Codigo).HasColumnName("codigo");
             entity.Property(e => e.CodigoPelicula).HasColumnName("codigo_pelicula");
             entity.Property(e => e.CodigoTipo).HasColumnName("codigo_tipo");
 
-            entity.HasOne(d => d.CodigoPeliculaNavigation).WithMany()
+            entity.HasOne(d => d.CodigoPeliculaNavigation).WithMany(p => p.RelacionPeliculasTipos)
                 .HasForeignKey(d => d.CodigoPelicula)
                 .HasConstraintName("FK__Relacion___codig__3A81B327");
 
-            entity.HasOne(d => d.CodigoTipoNavigation).WithMany()
+            entity.HasOne(d => d.CodigoTipoNavigation).WithMany(p => p.RelacionPeliculasTipos)
                 .HasForeignKey(d => d.CodigoTipo)
                 .HasConstraintName("FK__Relacion___codig__3B75D760");
         });
 
         modelBuilder.Entity<RelacionPersonasTipo>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Relacion_Personas_tipos");
+            entity.HasKey(e => e.Codigo).HasName("PK__Relacion__40F9A207462306BF");
 
+            entity.ToTable("Relacion_Personas_tipos");
+
+            entity.Property(e => e.Codigo).HasColumnName("codigo");
             entity.Property(e => e.CodigoPersona).HasColumnName("codigo_persona");
             entity.Property(e => e.CodigoTipo).HasColumnName("codigo_tipo");
 
-            entity.HasOne(d => d.CodigoPersonaNavigation).WithMany()
+            entity.HasOne(d => d.CodigoPersonaNavigation).WithMany(p => p.RelacionPersonasTipos)
                 .HasForeignKey(d => d.CodigoPersona)
                 .HasConstraintName("FK__Relacion___codig__3F466844");
 
-            entity.HasOne(d => d.CodigoTipoNavigation).WithMany()
+            entity.HasOne(d => d.CodigoTipoNavigation).WithMany(p => p.RelacionPersonasTipos)
                 .HasForeignKey(d => d.CodigoTipo)
                 .HasConstraintName("FK__Relacion___codig__403A8C7D");
         });

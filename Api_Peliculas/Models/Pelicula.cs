@@ -14,4 +14,6 @@ public partial class Pelicula
     public string? Imagen { get; set; }
 
     public string? TiempoDuracion { get; set; }
+
+    public virtual ICollection<RelacionPeliculasTipo> RelacionPeliculasTipos { get; set; } = new List<RelacionPeliculasTipo>();
 }

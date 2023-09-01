@@ -9,6 +9,8 @@ public partial class RelacionPersonasTipo
 
     public int? CodigoTipo { get; set; }
 
+    public int Codigo { get; set; }
+
     public virtual Persona? CodigoPersonaNavigation { get; set; }
 
     public virtual Tipo? CodigoTipoNavigation { get; set; }

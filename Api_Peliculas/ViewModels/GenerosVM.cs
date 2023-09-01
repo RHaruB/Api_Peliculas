@@ -1,8 +1,8 @@
 ﻿namespace Api_Peliculas.ViewModels
 {
-    public class Generos
+    public class GenerosVM
     {
         public int Id { get; set; }
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
     }
 }

@@ -12,4 +12,8 @@ public partial class Persona
     public string? Nombre { get; set; }
 
     public DateTime? FechaNacimiento { get; set; }
+
+    public string? Cedula { get; set; }
+
+    public virtual ICollection<RelacionPersonasTipo> RelacionPersonasTipos { get; set; } = new List<RelacionPersonasTipo>();
 }
