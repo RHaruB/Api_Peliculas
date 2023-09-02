@@ -1,4 +1,5 @@
-﻿using Api_Peliculas.Service;
+﻿using Api_Peliculas.Models;
+using Api_Peliculas.Service;
 using Api_Peliculas.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,41 @@ namespace Api_Peliculas.Controllers
                 return new JsonResult(ex.Message);
             }
 
+        }
+        [HttpPost("RegistroPeliculas")]
+        public IActionResult RegistroPeliculas(PeliculasVM peliculas)
+        {
+            try
+            {
+                var result = _netflix.RegistrarPeliculas(peliculas);
+                return new JsonResult(result);
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(ex.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllGeneros")]
+        public IActionResult GetAllGeneros()
+        {
+            var result = _netflix.GetAllGeneros();
+            return new JsonResult(result);
+
+        }
+
+        [HttpGet("GetAllPersonas")]
+        public IActionResult GetAllPersonas()
+        {
+            var result = _netflix.GetAllPersonas();
+            return new JsonResult(result);
+        }
+        [HttpGet("GetAllPeliculas")]
+        public IActionResult GetAllPeliculas()
+        {
+            var result = _netflix.GetAllPeliculas();
+            return new JsonResult(result);
         }
     }
 }
